@@ -1,0 +1,17 @@
+D:\Mustakim\DemoEmployeeApi\DemoEmployeeApi.Repo\bin\Debug\net6.0\DemoEmployeeApi.Repo.deps.json
+D:\Mustakim\DemoEmployeeApi\DemoEmployeeApi.Repo\bin\Debug\net6.0\DemoEmployeeApi.Repo.runtimeconfig.json
+D:\Mustakim\DemoEmployeeApi\DemoEmployeeApi.Repo\bin\Debug\net6.0\DemoEmployeeApi.Repo.dll
+D:\Mustakim\DemoEmployeeApi\DemoEmployeeApi.Repo\bin\Debug\net6.0\DemoEmployeeApi.Repo.pdb
+D:\Mustakim\DemoEmployeeApi\DemoEmployeeApi.Repo\bin\Debug\net6.0\DemoEmployeeApi.Core.dll
+D:\Mustakim\DemoEmployeeApi\DemoEmployeeApi.Repo\bin\Debug\net6.0\DemoEmployeeApi.Core.pdb
+D:\Mustakim\DemoEmployeeApi\DemoEmployeeApi.Repo\obj\Debug\net6.0\DemoEmployeeApi.Repo.csproj.AssemblyReference.cache
+D:\Mustakim\DemoEmployeeApi\DemoEmployeeApi.Repo\obj\Debug\net6.0\DemoEmployeeApi.Repo.GeneratedMSBuildEditorConfig.editorconfig
+D:\Mustakim\DemoEmployeeApi\DemoEmployeeApi.Repo\obj\Debug\net6.0\DemoEmployeeApi.Repo.AssemblyInfoInputs.cache
+D:\Mustakim\DemoEmployeeApi\DemoEmployeeApi.Repo\obj\Debug\net6.0\DemoEmployeeApi.Repo.AssemblyInfo.cs
+D:\Mustakim\DemoEmployeeApi\DemoEmployeeApi.Repo\obj\Debug\net6.0\DemoEmployeeApi.Repo.csproj.CoreCompileInputs.cache
+D:\Mustakim\DemoEmployeeApi\DemoEmployeeApi.Repo\obj\Debug\net6.0\DemoEmployeeApi.Repo.csproj.CopyComplete
+D:\Mustakim\DemoEmployeeApi\DemoEmployeeApi.Repo\obj\Debug\net6.0\DemoEmployeeApi.Repo.dll
+D:\Mustakim\DemoEmployeeApi\DemoEmployeeApi.Repo\obj\Debug\net6.0\refint\DemoEmployeeApi.Repo.dll
+D:\Mustakim\DemoEmployeeApi\DemoEmployeeApi.Repo\obj\Debug\net6.0\DemoEmployeeApi.Repo.pdb
+D:\Mustakim\DemoEmployeeApi\DemoEmployeeApi.Repo\obj\Debug\net6.0\DemoEmployeeApi.Repo.genruntimeconfig.cache
+D:\Mustakim\DemoEmployeeApi\DemoEmployeeApi.Repo\obj\Debug\net6.0\ref\DemoEmployeeApi.Repo.dll

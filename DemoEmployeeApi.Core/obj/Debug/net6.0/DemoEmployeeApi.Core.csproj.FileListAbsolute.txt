@@ -1,0 +1,14 @@
+D:\Mustakim\DemoEmployeeApi\DemoEmployeeApi.Core\bin\Debug\net6.0\DemoEmployeeApi.Core.deps.json
+D:\Mustakim\DemoEmployeeApi\DemoEmployeeApi.Core\bin\Debug\net6.0\DemoEmployeeApi.Core.runtimeconfig.json
+D:\Mustakim\DemoEmployeeApi\DemoEmployeeApi.Core\bin\Debug\net6.0\DemoEmployeeApi.Core.dll
+D:\Mustakim\DemoEmployeeApi\DemoEmployeeApi.Core\bin\Debug\net6.0\DemoEmployeeApi.Core.pdb
+D:\Mustakim\DemoEmployeeApi\DemoEmployeeApi.Core\obj\Debug\net6.0\DemoEmployeeApi.Core.csproj.AssemblyReference.cache
+D:\Mustakim\DemoEmployeeApi\DemoEmployeeApi.Core\obj\Debug\net6.0\DemoEmployeeApi.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\Mustakim\DemoEmployeeApi\DemoEmployeeApi.Core\obj\Debug\net6.0\DemoEmployeeApi.Core.AssemblyInfoInputs.cache
+D:\Mustakim\DemoEmployeeApi\DemoEmployeeApi.Core\obj\Debug\net6.0\DemoEmployeeApi.Core.AssemblyInfo.cs
+D:\Mustakim\DemoEmployeeApi\DemoEmployeeApi.Core\obj\Debug\net6.0\DemoEmployeeApi.Core.csproj.CoreCompileInputs.cache
+D:\Mustakim\DemoEmployeeApi\DemoEmployeeApi.Core\obj\Debug\net6.0\DemoEmployeeApi.Core.dll
+D:\Mustakim\DemoEmployeeApi\DemoEmployeeApi.Core\obj\Debug\net6.0\refint\DemoEmployeeApi.Core.dll
+D:\Mustakim\DemoEmployeeApi\DemoEmployeeApi.Core\obj\Debug\net6.0\DemoEmployeeApi.Core.pdb
+D:\Mustakim\DemoEmployeeApi\DemoEmployeeApi.Core\obj\Debug\net6.0\DemoEmployeeApi.Core.genruntimeconfig.cache
+D:\Mustakim\DemoEmployeeApi\DemoEmployeeApi.Core\obj\Debug\net6.0\ref\DemoEmployeeApi.Core.dll

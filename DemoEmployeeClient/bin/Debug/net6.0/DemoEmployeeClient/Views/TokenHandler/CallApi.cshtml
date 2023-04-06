@@ -1,0 +1,269 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<link href="~/css/custome/datatable.css" rel="stylesheet" />
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link>
+<div class="row">
+    <label id="txtPmsg" style="font-size: larger; font-weight: 600; color: green;"></label>
+</div>
+
+<div id="divMsg" class="row">
+    <div class="col-md-12 d-flex justify-content-center">
+        <h2>Employee</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 mb-2 d-flex justify-content-end">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            + Add
+        </button>
+
+    </div>
+    <div class="col-md-12">
+        <table id="myTable" class="display">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Salary</th>
+                    <th>Address</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Employee</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input id="txtId" type="hidden" />
+                <div class="md-form mb-3">
+                    <input type="text" id="txtName" class="form-control" placeholder="Enter Name">
+                </div>
+                <div class="md-form mb-3">
+                    <input type="text" id="txtSalary" class="form-control" placeholder="Enter Salary">
+                </div>
+                <div class="md-form mb-3">
+                    <input type="text" id="txtAddress" class="form-control" placeholder="Enter Address">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button id="btnSave" type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Delete</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h3>Are you sure ?</h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <button id="btnDel" type="button" class="btn btn-danger">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/js/custome/cookies.js"></script>
+    <script src="~/js/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/chat.js"></script>
+    <script src="~/js/custome/datatable.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
+
+    <script>
+
+        var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+        $(document).ready(function () {
+            connection.start();
+            connection.on("ReceiveMessage", function (message) {
+                // Add the message to the page.
+                $("#txtPmsg").text(message)
+                $("#txtPmsg").show().delay(2000).fadeOut();
+            });
+
+            InitializeDataTable();
+            AddEmployee();
+        });
+
+        function Reset() {
+            $("#txtId").val('');
+            $("#txtName").val('');
+            $("#txtSalary").val('');
+            $("#txtAddress").val('');
+        }
+
+        function AddEmployee() {
+            $(document).on("click", "#btnSave", function () {
+
+                var employeeId = $("#txtId").val();
+                var Name = $("#txtName").val();
+                var Salary = $("#txtSalary").val();
+                var Address = $("#txtAddress").val();
+
+                var employee = {
+                    Name: Name,
+                    Salary: Salary,
+                    Address: Address
+                };
+
+                if (employeeId) {
+                    var url = "https://localhost:7287/api/Employee/Modify";
+                    employee.Id = employeeId;
+                } else {
+                    var url = "https://localhost:7287/api/Employee/Add";
+                }
+
+                $.ajax({
+                    type: "POST",
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('Authorization', 'Bearer ' + $.cookie("token"));
+                    },
+                    data: JSON.stringify(employee),
+                    url: url,
+                    contentType: "application/json"
+                }).done(function (res) {
+                    $('#myTable').DataTable().ajax.reload();
+                    $('#exampleModal').modal('hide');
+                    Reset();
+                    if (res.statusCode == 400) {
+                        swal("Error !!", "something went wrong!!", "error");
+                    } else {
+                        //invoke signalR message hub
+                        connection.invoke("SendMessage", "Save successfully")
+                        swal("Save", "Save successfully", "success");
+                    }
+
+                }).fail(function (response, textStatus, errorThrown) {
+                    $('#exampleModal').modal('hide');
+                    Reset();
+                    swal("UNAUTHORIZE !!", "HTTP error: status code 404 ", "error");
+                });
+            });
+        }
+
+        function InitializeDataTable() {
+            var url = "https://localhost:7287/api/Employee/GetAll";
+            $('#myTable').DataTable({
+                scrollY: '250px',
+                scrollCollapse: true,
+                ajax: {
+                    url: url,
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('Authorization', 'Bearer ' + $.cookie("token"));
+                    },
+                    dataSrc: function (result) {
+                        return result.data
+                    },
+                    error: function (xhr, error, code) {
+                        swal("UNAUTHORIZE !!", "HTTP error: status code 404 ", "error");
+                    }
+                },
+                columns: [
+                    {
+                        data: 'id',
+                        visible: false,
+                    },
+                    {
+                        data: 'name',
+                        width: '200px'
+                    },
+                    {
+                        data: 'salary',
+                        width: '200px'
+                    },
+                    {
+                        data: 'address',
+                        width: '200px'
+                    },
+                    {
+                        data: 'id',
+                        width: '150px',
+                        render: function (data) {
+                            return '<button id="btnDelete" type="button" onclick="Confirmation(' + data + ')">Delete</button>' +
+                                ' <button id="btnUpdate" type="button" onclick="UpdateEmployee(' + data + ')">Update</button> ';
+                        }
+                    }
+                ],
+            });
+        }
+
+        function Confirmation(id) {
+            $('#confirmModal').modal('show');
+            $(document).on("click", "#btnDel", function () {
+                DeleteEmployee(id);
+            });
+        }
+
+        function DeleteEmployee(id) {
+            var url = "https://localhost:7287/api/Employee/Delete?Id=" + id;
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + $.cookie("token"));
+                },
+                success: function (result) {
+                    $('#myTable').DataTable().ajax.reload();
+                    $('#confirmModal').modal('hide');
+
+                    if (result.statusCode == 400) {
+                        swal("Error !!", "something went wrong!!", "error");
+                    } else {
+                        //invoke signalR message hub
+                        connection.invoke("SendMessage", "Delete successfully")
+                        swal("Delete", "Delete successfully", "success");
+                    }
+                },
+                error: function (response, status, errorThrown) {
+                    $('#confirmModal').modal('hide');
+                    swal("UNAUTHORIZE !!", "HTTP error: status code 404 ", "error");
+                }
+            });
+        }
+
+        function UpdateEmployee(id) {
+            var url = "https://localhost:7287/api/Employee/Get?Id=" + id;
+            $.ajax({
+                url: url,
+                type: 'GET',
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + $.cookie("token"));
+                },
+                success: function (result) {
+                    $("#txtId").val(result.id);
+                    $("#txtName").val(result.name);
+                    $("#txtSalary").val(result.salary);
+                    $("#txtAddress").val(result.address);
+                    $('#exampleModal').modal('show');
+                },
+                error: function (response, status, errorThrown) {
+                    $('#exampleModal').modal('hide');
+                    swal("UNAUTHORIZE !!", "HTTP error: status code 404 ", "error");
+                }
+            });
+        }
+    </script>
+}
